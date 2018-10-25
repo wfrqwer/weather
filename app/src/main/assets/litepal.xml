@@ -1,0 +1,10 @@
+<litpal>
+    <dbname value="weather"/>
+    <version value="1"/>
+    <!--将Province、City、County三个实体类映射到列表中-->
+    <list>
+        <mapping class="com.weather.android.db.Province"/>
+        <mapping class="com.weather.android.db.City"/>
+        <mapping class="com.weather.android.db.County"/>
+    </list>
+</litpal>
