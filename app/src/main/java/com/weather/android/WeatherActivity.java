@@ -1,5 +1,6 @@
 package com.weather.android;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.weather.android.gson.Forecast;
 import com.weather.android.gson.Weather;
+import com.weather.android.service.AutoUpdateService;
 import com.weather.android.util.HttpUtil;
 import com.weather.android.util.Utility;
 
@@ -131,7 +133,7 @@ public class WeatherActivity extends AppCompatActivity {
      */
     public void requestWeather(final String weatherId){
         String weatherUrl="http://guolin.tech/api/weather?cityid="+
-                weatherId+"&key=bc0418b57b2d4918819d3974ac1285d9";
+                weatherId+"&key=be738436cd7e43da9f28cac7cb439216";
         HttpUtil.sendOkHttpRequest(weatherUrl, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -160,6 +162,7 @@ public class WeatherActivity extends AppCompatActivity {
                             editor.putString("weather",responseText);
                             editor.apply();
                             showWeatherInfo(weather);
+
                         }else {
                             Toast.makeText(WeatherActivity.this,"获取天气信息失败",
                                     Toast.LENGTH_SHORT).show();
@@ -211,6 +214,9 @@ public class WeatherActivity extends AppCompatActivity {
         carWashText.setText(carWash);
         sportText.setText(sport);
         weatherLayout.setVisibility(View.VISIBLE);
+
+        Intent intent=new Intent(this, AutoUpdateService.class);
+        startService(intent);
     }
 
 
@@ -241,6 +247,8 @@ public class WeatherActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }
 
 
